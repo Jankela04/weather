@@ -1,26 +1,19 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-
+import { useEffect } from "react";
+import axios from "axios";
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const API_KEY = "17c9212f81fe4ad699174506221609";
+
+    const func = async () => {
+        const res = await axios.get(
+            `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=Temerin`
+        );
+        console.log(res.data);
+    };
+
+    useEffect(() => {
+        func();
+    }, []);
+    return <div className="App">Yo</div>;
 }
 
 export default App;
