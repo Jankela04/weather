@@ -1,19 +1,34 @@
 import { useEffect } from "react";
+import "./App.css";
+import CurrentForecastCard from "./components/CurrentForecastCard";
+import { Heading } from "./components/Heading.style";
 import axios from "axios";
-function App() {
-    const API_KEY = "17c9212f81fe4ad699174506221609";
+import { useAppDispatch, useAppSelector } from "./features/hooks/useRedux";
+import { fetchWeather } from "./features/slices/weatherSlice";
 
-    const func = async () => {
-        const res = await axios.get(
-            `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=Temerin`
-        );
-        console.log(res.data);
-    };
+function App() {
+    const weather = useAppSelector((state) => state.weather.value);
+    const dispatch = useAppDispatch();
+
+    const localWeatherKey = localStorage.getItem("weatherApiKey");
+
+    const weatherKey = localWeatherKey
+        ? localWeatherKey
+        : "17c9212f81fe4ad699174506221609";
 
     useEffect(() => {
-        func();
+        localStorage.setItem("weatherApiKey", "17c9212f81fe4ad699174506221609");
+        dispatch(fetchWeather(weatherKey));
     }, []);
-    return <div className="App">Yo</div>;
+
+    return (
+        <div className="App">
+            <Heading>
+                {weather.location?.name}, {weather.location?.country}
+            </Heading>
+            <CurrentForecastCard />
+        </div>
+    );
 }
 
 export default App;
