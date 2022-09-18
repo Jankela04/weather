@@ -22,6 +22,7 @@ export const StyledCurrentCard = styled.div`
 
     .temp-condition {
         display: flex;
+        justify-content: space-between;
         .temp {
             display: flex;
             align-items: flex-start;
@@ -32,12 +33,15 @@ export const StyledCurrentCard = styled.div`
             }
         }
         .condition {
+            text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
+            margin-right: 0.5em;
         }
     }
     .minmax-wind {
+        margin-top: 1em;
         grid-column: 1/3;
         text-align: center;
         span {
