@@ -4,7 +4,7 @@ export const StyledCurrentCard = styled.div`
     display: grid;
     padding: 0.5em 0;
     border: 1px solid black;
-    grid-template-columns: 0.8fr 1fr;
+    grid-template-columns: 1fr 1fr;
     margin-inline: 0.5em;
     .date-time {
         margin-top: 1em;
@@ -41,7 +41,6 @@ export const StyledCurrentCard = styled.div`
         }
     }
     .minmax-wind {
-        margin-top: 1em;
         grid-column: 1/3;
         text-align: center;
         span {

@@ -5,11 +5,16 @@ import { useAppSelector } from "../redux/hooks/useRedux";
 const CurrentForecastCard = () => {
     const weather = useAppSelector((state) => state.weather.value);
 
+    const currentDate = new Date();
+
     return (
         <StyledCurrentCard>
             <div className="date-time">
-                <span className="date">Fri Sep 16, 2022</span>
-                <span className="time">06:65</span>
+                <span className="date">Fri Sep 16 2022</span>
+                <span className="time">
+                    {currentDate.getHours()}:
+                    {String(currentDate.getMinutes()).padStart(2, "0")}
+                </span>
             </div>
             <div className="temp-condition">
                 <div className="temp">
@@ -40,7 +45,10 @@ const CurrentForecastCard = () => {
                         : "error"}
                     &#x2103;
                 </span>
-                <span className="wind">Wind: North 5km/h</span>
+                <span className="wind">
+                    Wind: {weather.current?.wind_dir}{" "}
+                    {Math.round(weather.current?.wind_kph || 0)}km/h
+                </span>
             </div>
         </StyledCurrentCard>
     );

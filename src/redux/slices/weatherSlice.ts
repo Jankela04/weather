@@ -1,9 +1,13 @@
 import axios from "axios";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as WeatherObj from "./weatherInterface";
-import { useAppSelector } from "../hooks/useRedux";
 
 const city = "Temerin"; // TODO get city hook
+
+interface obj {
+    weatherKey: string;
+    coords: string;
+}
 
 type InitialState = {
     loading: boolean;
@@ -19,9 +23,9 @@ const initialState: InitialState = {
 
 export const fetchWeather = createAsyncThunk(
     "weather/fetchWeather",
-    async (weatherKey: string) => {
+    async ({ weatherKey, coords }: obj) => {
         const res = await axios.get(
-            `http://api.weatherapi.com/v1/forecast.json?key=${weatherKey}&q=51.509865,-0.118092`
+            `http://api.weatherapi.com/v1/forecast.json?key=${weatherKey}&q=${coords}`
         );
 
         return res.data;
