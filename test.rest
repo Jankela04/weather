@@ -1,1 +1,1 @@
-http://api.weatherapi.com/v1/forecast.json?key=17c9212f81fe4ad699174506221609&q=51.509865,-0.118092
+http://api.weatherapi.com/v1/forecast.json?key=17c9212f81fe4ad699174506221609&q=temerin

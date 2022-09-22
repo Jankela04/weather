@@ -5,12 +5,17 @@ import { useAppSelector } from "../redux/hooks/useRedux";
 const CurrentForecastCard = () => {
     const weather = useAppSelector((state) => state.weather.value);
 
-    const currentDate = new Date();
+    const loading = useAppSelector((state) => state.weather.loading);
 
+    const currentDate = new Date();
+    const daysInWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     return (
         <StyledCurrentCard>
             <div className="date-time">
-                <span className="date">Fri Sep 16 2022</span>
+                <span className="date">
+                    {weather.location?.localtime.slice(0, 10)}
+                    {` ${daysInWeek[currentDate.getDay()]}`}
+                </span>
                 <span className="time">
                     {currentDate.getHours()}:
                     {String(currentDate.getMinutes()).padStart(2, "0")}
