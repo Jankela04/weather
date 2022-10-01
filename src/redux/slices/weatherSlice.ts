@@ -6,7 +6,7 @@ const city = "Temerin"; // TODO get city hook
 
 interface obj {
     weatherKey: string;
-    coords: string;
+    location: string;
 }
 
 type InitialState = {
@@ -23,9 +23,9 @@ const initialState: InitialState = {
 
 export const fetchWeather = createAsyncThunk(
     "weather/fetchWeather",
-    async ({ weatherKey, coords }: obj) => {
+    async ({ weatherKey, location }: obj) => {
         const res = await axios.get(
-            `http://api.weatherapi.com/v1/forecast.json?key=${weatherKey}&q=${coords}`
+            `http://api.weatherapi.com/v1/forecast.json?key=${weatherKey}&q=${location}`
         );
 
         return res.data;

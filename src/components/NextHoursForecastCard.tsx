@@ -11,8 +11,6 @@ const NextHoursForecastCard = () => {
         <StyledForecastCard>
             <span>Current Day</span>{" "}
             <div className="forecast-cards-container">
-                {}
-                {/* {weather.forecast?.forecastday[0].hour?.map( */}
                 {forecastHours?.map((hourObj, index) => {
                     const chanceOfRain = hourObj.chance_of_rain;
                     const chanceOfSnow = hourObj.chance_of_snow;

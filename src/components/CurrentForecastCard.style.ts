@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const StyledCurrentCard = styled.div`
     display: grid;
     padding: 0.5em 0;
-    border: 1px solid black;
+    background-color: rgba(0, 0, 0, 0.4);
     grid-template-columns: 1fr 1fr;
     margin-inline: 0.5em;
     .date-time {

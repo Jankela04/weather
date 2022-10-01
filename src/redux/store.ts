@@ -1,12 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import weatherReducer from "./slices/weatherSlice";
 import apiKeysSliceReducer from "./slices/apiKeysSlice";
+import citiesReducer from "./slices/CitiesSlice";
 
 const store = configureStore({
     reducer: {
         weather: weatherReducer,
         apiKeys: apiKeysSliceReducer,
-        // TODO seperate reducer for getting user location
+        cities: citiesReducer,
     },
 });
 

@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const StyledForecastCard = styled.div`
     margin: 1em 0.5em;
-    border: 1px solid black;
+    background-color: rgba(0, 0, 0, 0.4);
     overflow: auto;
     padding: 0.5em;
 
@@ -16,12 +16,12 @@ export const StyledForecastCard = styled.div`
         gap: 0.5em;
         .card {
             padding: 0.5em;
-            outline: 1px solid black;
             display: flex;
             flex-direction: column;
             align-items: center;
             svg {
                 width: 30px;
+                fill: white;
             }
             .chance {
                 display: flex;
