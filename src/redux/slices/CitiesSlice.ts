@@ -24,6 +24,15 @@ export const citiesSlice = createSlice({
         addCity: (state, action: PayloadAction<string>) => {
             state.cities = [...state.cities, action.payload];
         },
+        removeCity: (state, action) => {
+            if (state.cities.length === 1) state.cities = [];
+            else {
+                state.cities = [
+                    ...state.cities.slice(0, action.payload),
+                    ...state.cities.slice(action.payload + 1),
+                ];
+            }
+        },
         increaseIndex: (state) => {
             state.index += 1;
         },
@@ -33,7 +42,12 @@ export const citiesSlice = createSlice({
     },
 });
 
-export const { getInitialState, addCity, increaseIndex, decreaseIndex } =
-    citiesSlice.actions;
+export const {
+    getInitialState,
+    addCity,
+    removeCity,
+    increaseIndex,
+    decreaseIndex,
+} = citiesSlice.actions;
 
 export default citiesSlice.reducer;

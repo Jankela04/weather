@@ -9,8 +9,11 @@ import { Navigation } from "../components/Navigation.style";
 import {
     addCity,
     decreaseIndex,
+    getInitialState,
     increaseIndex,
+    removeCity,
 } from "../redux/slices/CitiesSlice";
+import { StyledCheckbox } from "../components/SlideCheckBox.style";
 
 const City = () => {
     const city = useParams();
@@ -20,6 +23,8 @@ const City = () => {
     );
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+
+    const [isCels, setIsCels] = useState(true);
 
     const cities = useAppSelector((state) => state.cities);
 
@@ -35,12 +40,32 @@ const City = () => {
         }
     }, [weatherApiKey, dispatch, city.city]);
 
+    useEffect(() => {
+        localStorage.setItem("savedCities", JSON.stringify(cities.cities));
+    }, [cities.cities]);
+
     return (
         <>
             <Heading>
                 <h1>
                     {weather.location?.name}, {weather.location?.country}
                 </h1>
+                <button
+                    onClick={async () => {
+                        dispatch(removeCity(cities.index));
+                        dispatch(decreaseIndex());
+                        setTimeout(() => {
+                            if (cities.index === 0) {
+                                dispatch(getInitialState());
+                                navigate(`/`);
+                            } else {
+                                navigate(`/${cities.cities[cities.index - 1]}`);
+                            }
+                        }, 1);
+                    }}
+                >
+                    X
+                </button>
             </Heading>
             <Navigation>
                 <svg
@@ -96,8 +121,19 @@ const City = () => {
                 </svg>
             </Navigation>
 
-            <CurrentForecastCard />
-            <NextHoursForecastCard />
+            <CurrentForecastCard isCels={isCels} />
+            <NextHoursForecastCard isCels={isCels} />
+            <StyledCheckbox htmlFor="myToggle">
+                <input
+                    type="checkbox"
+                    id="myToggle"
+                    checked={isCels}
+                    onChange={() => {
+                        setIsCels(!isCels);
+                    }}
+                />
+                <div></div>
+            </StyledCheckbox>
         </>
     );
 };

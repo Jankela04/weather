@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import CurrentForecastCard from "../components/CurrentForecastCard";
-import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Heading } from "../components/Heading.style";
 import { useAppDispatch, useAppSelector } from "../redux/hooks/useRedux";
 import { fetchWeather } from "../redux/slices/weatherSlice";
@@ -9,12 +8,13 @@ import NextHoursForecastCard from "../components/NextHoursForecastCard";
 import { Form } from "../components/Form.style";
 import { Navigation } from "../components/Navigation.style";
 import { useNavigate } from "react-router-dom";
-import { json } from "stream/consumers";
+
 import {
     addCity,
     getInitialState,
     increaseIndex,
 } from "../redux/slices/CitiesSlice";
+import { StyledCheckbox } from "../components/SlideCheckBox.style";
 
 const WEATHER_API_KEY = "e153dcc972b548f4aa4101631220110";
 
@@ -27,6 +27,8 @@ const Home = () => {
 
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+
+    const [isCels, setIsCels] = useState(true);
 
     const [isFormActive, setIsFormActive] = useState(false);
     const [inputField, setInputField] = useState("");
@@ -58,7 +60,6 @@ const Home = () => {
         }
     }, [weatherApiKey, dispatch, coords]);
 
-    // TODO getting and saving cities
     useEffect(() => {
         localStorage.setItem("savedCities", JSON.stringify(cities.cities));
     }, [cities.cities]);
@@ -129,15 +130,28 @@ const Home = () => {
                     <button
                         onClick={() => {
                             dispatch(addCity(inputField));
+                            setInputField("");
                         }}
                     >
                         Add Location
                     </button>
                 </Form>
             )}
-            <CurrentForecastCard />
+            <CurrentForecastCard isCels={isCels} />
 
-            <NextHoursForecastCard />
+            <NextHoursForecastCard isCels={isCels} />
+
+            <StyledCheckbox htmlFor="myToggle">
+                <input
+                    type="checkbox"
+                    id="myToggle"
+                    checked={isCels}
+                    onChange={() => {
+                        setIsCels(!isCels);
+                    }}
+                />
+                <div></div>
+            </StyledCheckbox>
         </div>
     );
 };

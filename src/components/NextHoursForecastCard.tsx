@@ -1,7 +1,11 @@
 import { StyledForecastCard } from "./NextHoursForecastCard.style";
 import { useAppSelector } from "../redux/hooks/useRedux";
 
-const NextHoursForecastCard = () => {
+type PropTypes = {
+    isCels: boolean;
+};
+
+const NextHoursForecastCard = ({ isCels }: PropTypes) => {
     const weather = useAppSelector((state) => state.weather.value);
     const currentHour = new Date().getHours();
     const forecastHours =
@@ -45,7 +49,10 @@ const NextHoursForecastCard = () => {
                                 )}
                             </span>
                             <span className="temp">
-                                {Math.round(hourObj.temp_c)}&#176;
+                                {Math.round(
+                                    isCels ? hourObj.temp_c : hourObj.temp_f
+                                )}
+                                &#176;
                             </span>
                         </div>
                     );
